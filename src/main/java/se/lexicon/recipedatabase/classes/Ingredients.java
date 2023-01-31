@@ -12,4 +12,7 @@ public class Ingredients {
 
     @Column(nullable = false, unique = true)
     private String ingredientName;
+
+    @ManyToOne
+    private RecipeIngredient recipeIngredient;
 }

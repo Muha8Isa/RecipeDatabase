@@ -3,10 +3,8 @@ package se.lexicon.recipedatabase.classes;
 import org.hibernate.annotations.GenericGenerator;
 import se.lexicon.recipedatabase.Enum.Measurement;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.*;
 import java.util.UUID;
 
 
@@ -19,11 +17,14 @@ public class RecipeIngredient {
     strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
+    @Column(nullable = false)
     private double amount;
 
+    @Column(nullable = false)
     private Measurement measurement;
 
+    @ManyToOne
     private Recipe recipe;
-    @OneToMany
-    private Ingredients ingredients;
+    @OneToMany(mappedBy = "recipeIngredient") // According to the table, this should be @ManyToOne, but collections cannot be @ManyToOne
+    private Set<Ingredients> ingredients;
 }
