@@ -10,9 +10,9 @@ public class RecipeCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String category;
 
-    @OneToMany ////Can I have OneToMany in both linked entities? Recipe
+    @OneToMany //Can I have OneToMany in both linked entities? Recipe
     Set<Recipe> recipe;
 }
