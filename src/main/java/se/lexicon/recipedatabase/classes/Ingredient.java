@@ -4,7 +4,7 @@ package se.lexicon.recipedatabase.classes;
 import javax.persistence.*;
 
 @Entity
-public class Ingredients {
+public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
