@@ -16,7 +16,7 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe")
     List<RecipeIngredient> recipeIngredients;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private RecipeInstruction instruction;
 
     @OneToMany //Can I have OneToMany in both linked entities? //RecipeCategory, Collection cannot be OneToOne or ManyToOne
