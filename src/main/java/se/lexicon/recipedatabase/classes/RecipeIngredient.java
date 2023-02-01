@@ -26,5 +26,5 @@ public class RecipeIngredient {
     @ManyToOne
     private Recipe recipe;
     @OneToMany(mappedBy = "recipeIngredient") // According to the table, this should be @ManyToOne, but collections cannot be @ManyToOne
-    private Set<Ingredients> ingredients;
+    private Set<Ingredient> ingredients;
 }
