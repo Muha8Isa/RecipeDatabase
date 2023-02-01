@@ -20,9 +20,8 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(String ingredientName, RecipeIngredient recipeIngredient) {
+    public Ingredient(String ingredientName) {
         this.ingredientName = ingredientName;
-        this.recipeIngredient = recipeIngredient;
     }
 
     public Ingredient(int id, String ingredientName, RecipeIngredient recipeIngredient) {
