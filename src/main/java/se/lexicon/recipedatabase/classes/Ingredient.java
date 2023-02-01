@@ -14,8 +14,6 @@ public class Ingredient {
     @Column(nullable = false, unique = true)
     private String ingredientName;
 
-    @ManyToOne
-    private RecipeIngredient recipeIngredient;
 
     public Ingredient() {
     }
@@ -24,10 +22,9 @@ public class Ingredient {
         this.ingredientName = ingredientName;
     }
 
-    public Ingredient(int id, String ingredientName, RecipeIngredient recipeIngredient) {
+    public Ingredient(int id, String ingredientName) {
         this.id = id;
         this.ingredientName = ingredientName;
-        this.recipeIngredient = recipeIngredient;
     }
 
     public int getId() {
@@ -46,25 +43,17 @@ public class Ingredient {
         this.ingredientName = ingredientName;
     }
 
-    public RecipeIngredient getRecipeIngredient() {
-        return recipeIngredient;
-    }
-
-    public void setRecipeIngredient(RecipeIngredient recipeIngredient) {
-        this.recipeIngredient = recipeIngredient;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
-        return id == that.id && Objects.equals(ingredientName, that.ingredientName) && Objects.equals(recipeIngredient, that.recipeIngredient);
+        return id == that.id && Objects.equals(ingredientName, that.ingredientName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ingredientName, recipeIngredient);
+        return Objects.hash(id, ingredientName);
     }
 
     @Override
@@ -72,7 +61,6 @@ public class Ingredient {
         return "Ingredient{" +
                 "id=" + id +
                 ", ingredientName='" + ingredientName + '\'' +
-                ", recipeIngredient=" + recipeIngredient +
                 '}';
     }
 }
