@@ -10,6 +10,6 @@ public class RecipeInstruction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1500)
     private String instructions;
 }
