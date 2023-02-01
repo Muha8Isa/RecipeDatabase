@@ -23,22 +23,22 @@ public class RecipeIngredient {
     @Column(nullable = false)
     private Measurement measurement;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private Recipe recipe;
-    @OneToMany(mappedBy = "recipeIngredient") // According to the table, this should be @ManyToOne, but collections cannot be @ManyToOne
-    private Set<Ingredient> ingredients;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private Ingredient ingredients;
 
     public RecipeIngredient() {
     }
 
-    public RecipeIngredient(double amount, Measurement measurement, Recipe recipe, Set<Ingredient> ingredients) {
+    public RecipeIngredient(double amount, Measurement measurement, Recipe recipe, Ingredient ingredients) {
         this.amount = amount;
         this.measurement = measurement;
         this.recipe = recipe;
         this.ingredients = ingredients;
     }
 
-    public RecipeIngredient(UUID id, double amount, Measurement measurement, Recipe recipe, Set<Ingredient> ingredients) {
+    public RecipeIngredient(UUID id, double amount, Measurement measurement, Recipe recipe, Ingredient ingredients) {
         this.id = id;
         this.amount = amount;
         this.measurement = measurement;
