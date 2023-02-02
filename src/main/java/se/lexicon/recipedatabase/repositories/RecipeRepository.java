@@ -18,6 +18,9 @@ public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
     List<Recipe> findByRecipeNameContainsIgnoreCase(String name);
 
     List<Recipe> findAllByCategoriesContains(RecipeCategory recipeCategory);
-    List<Recipe> findAllByCategoriesWithin(Set<RecipeCategory> categories);
+
+    //List<Recipe> findAllByCategoriesWithin(Set<RecipeCategory> categories);
+    @Query("select r from Recipe r where r.categories = :ctg")
+    List<Recipe> findAllByCategories(@Param("ctg") Set<RecipeCategory> categories);
 
 }
