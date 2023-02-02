@@ -2,30 +2,24 @@ package se.lexicon.recipedatabase.repositories;
 
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import se.lexicon.recipedatabase.classes.Ingredient;
-
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@SpringBootTest
-@AutoConfigureTestDatabase
-@Transactional
-@AutoConfigureTestEntityManager
-@DirtiesContext
+import static org.junit.jupiter.api.Assertions.*;
+
+
+@DataJpaTest
 public class IngredientsRepositoryTest {
 
-    @Autowired
-    TestEntityManager em;
 
     @Autowired
     IngredientsRepository testObject;
+
+    Ingredient addedIngredient;
 
     @BeforeEach
     public void setup(){
@@ -33,11 +27,11 @@ public class IngredientsRepositoryTest {
         Ingredient ingredient1 = new Ingredient("garlic");
         Ingredient ingredient2 = new Ingredient("onion");
 
-        Ingredient createdIngredient1 = em.persist(ingredient1);
-        Ingredient createdIngredient2 = em.persist(ingredient2);
+        addedIngredient = testObject.save(ingredient1);
+        addedIngredient = testObject.save(ingredient2);
 
-        int createdIngredient1Id = createdIngredient1.getId();
-        int createdIngredient2Id = createdIngredient2.getId();
+        assertNotNull(ingredient1);
+        assertNotNull(ingredient2);
 
     }
 
@@ -96,4 +90,13 @@ public class IngredientsRepositoryTest {
     public void deleteAll() {
         testObject.deleteAll();
     }
+    @Test
+    public void test_findByIngredient(){
+        Optional<Ingredient> ingredientOptional = testObject.findByIngredientIgnoreCase(addedIngredient.getIngredientName());
+        assertTrue(ingredientOptional.isPresent());
+        Ingredient actualData = ingredientOptional.get();
+        Ingredient expectedData = addedIngredient;
+        assertEquals(expectedData, actualData);
+    }
+
 }
