@@ -12,17 +12,6 @@ public class RecipeDatabaseApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RecipeDatabaseApplication.class, args);
-        ex1();
     }
-
-    public static void ex1(){
-    List<Ingredient> ingredientList = new ArrayList<>();
-    Ingredient addedIngredient1 = new Ingredient("Garlic");
-    Ingredient addedIngredient2 = new Ingredient("Onion");
-    ingredientList.add(addedIngredient1);
-    ingredientList.add(addedIngredient2);
-    System.out.println(ingredientList);
-    }
-
 
 }
