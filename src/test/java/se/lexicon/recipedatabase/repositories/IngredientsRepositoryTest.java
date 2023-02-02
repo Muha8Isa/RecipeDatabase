@@ -42,11 +42,11 @@ public class IngredientsRepositoryTest {
     }
 
     public Optional<Ingredient> findByIngredientIgnoreCase(String ingredient) {
-        return testObject.findByIngredientIgnoreCase(ingredient);
+        return testObject.findByIngredientNameIgnoreCase(ingredient);
     }
 
     public List<Ingredient> findAllByIngredientContainsIgnoreCase(String ingredient) {
-        return testObject.findAllByIngredientContainsIgnoreCase(ingredient);
+        return testObject.findAllByIngredientNameContainsIgnoreCase(ingredient);
     }
 
     public <S extends Ingredient> S save(S entity) {
