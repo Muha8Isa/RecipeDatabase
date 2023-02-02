@@ -7,8 +7,7 @@ import se.lexicon.recipedatabase.classes.Ingredient;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-public interface IngredientsRepository extends CrudRepository<Ingredient, Integer> {
-    Optional<Ingredient> findByIngredientIgnoreCase(String ingredient);
+public interface IngredientRepository extends CrudRepository<Ingredient, Integer> {
+    Optional<Ingredient> findByIngredientNameIgnoreCase(String ingredient);
     List<Ingredient> findAllByIngredientContainsIgnoreCase(String ingredient);
 }
