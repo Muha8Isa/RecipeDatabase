@@ -42,7 +42,7 @@ public class IngredientsRepositoryTest {
     @Test
     public void findByIngredientIgnoreCase() {
 
-        Optional<Ingredient> ingredientOptional = testObject.findByIngredientIgnoreCase(createdIngredient1.getIngredientName());
+        Optional<Ingredient> ingredientOptional = testObject.findByIngredientNameIgnoreCase(createdIngredient1.getIngredientName());
         assertTrue(ingredientOptional.isPresent());
         Ingredient actualData = ingredientOptional.get();
         Ingredient expectedData = createdIngredient1;
@@ -53,7 +53,7 @@ public class IngredientsRepositoryTest {
     @Test
     public void findAllByIngredientContainsIgnoreCase() {
 
-        List<Ingredient> actualList = testObject.findAllByIngredientContainsIgnoreCase("I");
+        List<Ingredient> actualList = testObject.findAllByIngredientNameContainsIgnoreCase("I");
         List<Ingredient> expectedList = ingredientList;
         assertEquals(expectedList, actualList);
 
