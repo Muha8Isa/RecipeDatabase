@@ -34,6 +34,62 @@ public class IngredientsRepositoryTest {
         assertNotNull(ingredient2);
 
     }
+
+    public Optional<Ingredient> findByIngredientIgnoreCase(String ingredient) {
+        return testObject.findByIngredientNameIgnoreCase(ingredient);
+    }
+
+    public List<Ingredient> findAllByIngredientContainsIgnoreCase(String ingredient) {
+        return testObject.findAllByIngredientNameContainsIgnoreCase(ingredient);
+    }
+
+    public <S extends Ingredient> S save(S entity) {
+        return testObject.save(entity);
+    }
+
+    public <S extends Ingredient> Iterable<S> saveAll(Iterable<S> entities) {
+        return testObject.saveAll(entities);
+    }
+
+    public Optional<Ingredient> findById(Integer integer) {
+        return testObject.findById(integer);
+    }
+
+    public boolean existsById(Integer integer) {
+        return testObject.existsById(integer);
+    }
+
+    public Iterable<Ingredient> findAll() {
+        return testObject.findAll();
+    }
+
+    public Iterable<Ingredient> findAllById(Iterable<Integer> integers) {
+        return testObject.findAllById(integers);
+    }
+
+    public long count() {
+        return testObject.count();
+    }
+
+    public void deleteById(Integer integer) {
+        testObject.deleteById(integer);
+    }
+
+    public void delete(Ingredient entity) {
+        testObject.delete(entity);
+    }
+
+    public void deleteAllById(Iterable<? extends Integer> integers) {
+        testObject.deleteAllById(integers);
+    }
+
+    public void deleteAll(Iterable<? extends Ingredient> entities) {
+        testObject.deleteAll(entities);
+    }
+
+    public void deleteAll() {
+        testObject.deleteAll();
+    }
     @Test
     public void test_findByIngredient(){
         Optional<Ingredient> ingredientOptional = testObject.findByIngredientIgnoreCase(addedIngredient.getIngredientName());

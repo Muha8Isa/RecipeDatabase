@@ -14,7 +14,7 @@ public class Recipe {
     private String recipeName;
 
     @OneToMany(mappedBy = "recipe")
-    private List<RecipeIngredient> recipeIngredients  = new ArrayList<>();
+    private List<RecipeIngredient> recipeIngredients  = new ArrayList<>()   ;
 
     @OneToOne(cascade = CascadeType.ALL)
     private RecipeInstruction instruction;
