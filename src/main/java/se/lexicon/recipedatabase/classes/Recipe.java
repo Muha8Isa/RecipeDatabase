@@ -72,6 +72,12 @@ public class Recipe {
         this.recipeIngredients = recipeIngredients;
     }
 
+    public void addRecipeIngredient(RecipeIngredient recipeIngredient){
+        recipeIngredients.add(recipeIngredient);
+        if(recipeIngredient == null) throw new IllegalArgumentException("Argument provided was null");
+        recipeIngredient.setRecipe(this);
+    }
+
     public RecipeInstruction getInstruction() {
         return instruction;
     }
@@ -88,9 +94,16 @@ public class Recipe {
         this.categories = categories;
     }
 
-    public void addCategory(RecipeCategory recipeCategory) {
-        if (categories == null) categories = new HashSet<>();
+    public void addCategory(RecipeCategory recipeCategory){
         categories.add(recipeCategory);
+        if(recipeCategory == null) throw new IllegalArgumentException("Argument provided was null");
+        recipeCategory.addRecipe(this);
+    }
+
+    public void removeCategory(RecipeCategory recipeCategory) {
+        if (categories == null) categories = new HashSet<>();
+        categories.remove(recipeCategory);
+        recipeCategory.removeRecipe(this);
     }
 
     @Override

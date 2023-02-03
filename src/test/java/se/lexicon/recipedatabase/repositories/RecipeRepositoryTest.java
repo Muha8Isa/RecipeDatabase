@@ -8,10 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import se.lexicon.recipedatabase.Enum.Measurement;
 import se.lexicon.recipedatabase.classes.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataJpaTest
 public class RecipeRepositoryTest {
 
+    @Autowired
+    RecipeInstructionRepository recipeInstructionRepository;
 
     @Autowired
     RecipeRepository testObject;
@@ -41,14 +40,16 @@ public class RecipeRepositoryTest {
     Set<RecipeCategory> recipeCategories;
    // List<RecipeIngredient> recipeIngredientList;
 
-
+    Recipe onionStew;
+    Recipe steak;
 
     @BeforeEach
     public void setup() {
 
        // recipeIngredientList = new ArrayList<>();
+        onionStew = new Recipe("Onionstew");
+        steak = new Recipe("Steak");
 
-        Recipe onionStew = new Recipe("Onionstew");
 
         Ingredient ingredient1 = new Ingredient("garlic");
         Ingredient ingredient2 = new Ingredient("onion");
@@ -64,39 +65,65 @@ public class RecipeRepositoryTest {
         onions.setIngredients(ingredient1);
         garlics.setIngredients(ingredient2);
 
-        onions.setRecipe(onionStew);
-        garlics.setRecipe(onionStew);
+        //onions.setRecipe(onionStew);
+        //garlics.setRecipe(onionStew);
 
         onionStewInstruction = new RecipeInstruction("Add onions and garlic to the stew");
 
         onionStew.setInstruction(onionStewInstruction);
-        onionStew.setRecipeIngredients();
+        steak.setInstruction(onionStewInstruction);
 
         stews = new RecipeCategory("Here be stews yo");
 
         onionStew.addCategory(stews);
+        steak.addCategory(stews);
 
+        recipeManager.save(onions);
+        recipeManager.save(garlics);
+        //List<RecipeIngredient> ingredients = new ArrayList<>();
+
+        onionStew.addRecipeIngredient(onions);
+        onionStew.addRecipeIngredient(garlics);
+        steak.addRecipeIngredient(garlics);
         testObject.save(onionStew);
+        testObject.save(steak);
 
     }
 
     @Test
     public void findAllRecipesByIngredients() {
 
-        //System.out.println(testObject.findAllRecipesByIngredients(onions.getIngredients().getIngredientName()));
-        System.out.println(testObject.findAll());
-
-        /*
-            Optional<Ingredient> ingredientOptional = testObject.findByIngredientNameIgnoreCase(addedIngredient1.getIngredientName());
-            assertTrue(ingredientOptional.isPresent());
-            Ingredient actualData = ingredientOptional.get();
-            Ingredient expectedData1 = addedIngredient1;
+            List<Recipe> actualData = testObject.findAllByRecipeIngredients_Ingredients(ingredientManager.findById(addedIngredient1.getId()).get());
+            List<Recipe> expectedData1 = new ArrayList<>();
+            expectedData1.add(onionStew);
             assertEquals(expectedData1, actualData);
-
-         */
-
     }
 
+    @Test
+    public void findAllByRecipeNameContainsIgnoreCase() {
+        List<Recipe> expectedData2 = new ArrayList<>();
+        expectedData2.add(onionStew);
+        List<Recipe> actualData = testObject.findAllByRecipeNameContainsIgnoreCase("onio");
+        assertEquals(expectedData2, actualData);
+    }
 
+    @Test
+    public void findAllByCategoriesContains() {
+        List<Recipe> expectedData3 = new ArrayList<>();
+        expectedData3.add(onionStew);
+        List<Recipe> actualData = testObject.findAllByCategoriesContains(stews);
+        assertEquals(expectedData3, actualData);
+    }
+
+    @Test
+    public void findAllByCategories() {
+        List<Recipe> expectedData4 = new ArrayList<>();
+        expectedData4.add(onionStew);
+        Set<RecipeCategory> categories = new HashSet<>();
+        categories.add(stews);
+        List<Recipe> actualData = testObject.findAllByCategories(categories);
+        assertEquals(expectedData4, actualData);
+
+    }
 }
 

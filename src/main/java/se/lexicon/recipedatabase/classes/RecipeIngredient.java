@@ -101,7 +101,7 @@ public class RecipeIngredient {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, measurement, recipe, ingredients);
+        return Objects.hash(id, amount, measurement, ingredients);
     }
 
     @Override
@@ -110,7 +110,6 @@ public class RecipeIngredient {
                 "id=" + id +
                 ", amount=" + amount +
                 ", measurement=" + measurement +
-                ", recipe=" + recipe +
                 ", ingredients=" + ingredients +
                 '}';
     }

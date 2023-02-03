@@ -18,8 +18,8 @@ public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
     List<Recipe> findAllByRecipeNameContainsIgnoreCase(String name);
 
    // List<Recipe> findAllByIngredientContainsIgnoreCase(Ingredient ingredient);
-    @Query("select r from Recipe r join RecipeIngredient ri on ri.ingredients.ingredientName = :ingr")
-    List<Recipe> findAllRecipesByIngredients(@Param("ingr") String ingredient);
+    //@Query("select r from Recipe r join r.recipeIngredients ri where ri.ingredients.ingredientName = :ingr")
+    List<Recipe> findAllByRecipeIngredients_Ingredients( Ingredient ingredient);
 
             //and
             //ri.recipe.id = r.id")

@@ -18,7 +18,7 @@ public class RecipeCategory {
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    Set<Recipe> recipe;
+    Set<Recipe> recipe = new HashSet<>();
 
     public RecipeCategory() {
     }
@@ -62,6 +62,19 @@ public class RecipeCategory {
         this.recipe = recipe;
     }
 
+    public void addRecipe(Recipe recipe){
+        if(recipe == null) throw new IllegalArgumentException("Argument provided was null");
+        this.recipe.add(recipe);
+       // recipe.addCategory(this);
+    }
+
+    public void removeRecipe(Recipe recipe){
+        if(recipe == null) throw new IllegalArgumentException("Argument provided was null");
+        this.recipe.remove(recipe);
+       // recipe.removeCategory(this);
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,15 +85,14 @@ public class RecipeCategory {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, category, recipe);
+        return Objects.hash(id, category);
     }
 
     @Override
     public String toString() {
         return "RecipeCategory{" +
                 "id=" + id +
-                ", category='" + category + '\'' +
-                ", recipe=" + recipe +
+                ", category='" + category +
                 '}';
     }
 }
