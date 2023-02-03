@@ -15,11 +15,17 @@ import java.util.Set;
 @Repository
 public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
 
-    List<Recipe> findByRecipeNameContainsIgnoreCase(String name);
+    List<Recipe> findAllByRecipeNameContainsIgnoreCase(String name);
+
+   // List<Recipe> findAllByIngredientContainsIgnoreCase(Ingredient ingredient);
+    @Query("select r from Recipe r join RecipeIngredient ri on ri.ingredients.ingredientName = :ingr")
+    List<Recipe> findAllRecipesByIngredients(@Param("ingr") String ingredient);
+
+            //and
+            //ri.recipe.id = r.id")
 
     List<Recipe> findAllByCategoriesContains(RecipeCategory recipeCategory);
 
-    //List<Recipe> findAllByCategoriesWithin(Set<RecipeCategory> categories);
     @Query("select r from Recipe r where r.categories = :ctg")
     List<Recipe> findAllByCategories(@Param("ctg") Set<RecipeCategory> categories);
 
