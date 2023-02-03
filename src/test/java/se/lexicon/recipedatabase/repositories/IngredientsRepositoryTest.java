@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import se.lexicon.recipedatabase.classes.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,12 +25,13 @@ public class IngredientsRepositoryTest {
 
     @BeforeEach
     public void setup(){
+        ingredientList = new ArrayList<>();
 
         Ingredient ingredient1 = new Ingredient("garlic");
         Ingredient ingredient2 = new Ingredient("onion");
 
         createdIngredient1 = testObject.save(ingredient1);
-        createdIngredient2 = testObject.save(ingredient1);
+        createdIngredient2 = testObject.save(ingredient2);
         assertNotNull(createdIngredient1);
         assertNotNull(createdIngredient2);
 
