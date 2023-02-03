@@ -31,6 +31,11 @@ public class RecipeIngredient {
     public RecipeIngredient() {
     }
 
+    public RecipeIngredient(double amount, Measurement measurement) {
+        this.amount = amount;
+        this.measurement = measurement;
+    }
+
     public RecipeIngredient(double amount, Measurement measurement, Recipe recipe, Ingredient ingredients) {
         this.amount = amount;
         this.measurement = measurement;
@@ -43,6 +48,46 @@ public class RecipeIngredient {
         this.amount = amount;
         this.measurement = measurement;
         this.recipe = recipe;
+        this.ingredients = ingredients;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public Measurement getMeasurement() {
+        return measurement;
+    }
+
+    public void setMeasurement(Measurement measurement) {
+        this.measurement = measurement;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public Ingredient getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Ingredient ingredients) {
         this.ingredients = ingredients;
     }
 

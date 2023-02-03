@@ -13,10 +13,18 @@ public class RecipeCategory {
     @Column(nullable = false, unique = true)
     private String category;
 
-    @OneToMany //Can I have OneToMany in both linked entities? Recipe
+    @ManyToMany //Can I have OneToMany in both linked entities? Recipe
+    @JoinTable(name = "recipe_recipe_category",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     Set<Recipe> recipe;
 
     public RecipeCategory() {
+    }
+
+    public RecipeCategory(String category) {
+        this.category = category;
     }
 
     public RecipeCategory(String category, Set<Recipe> recipe) {

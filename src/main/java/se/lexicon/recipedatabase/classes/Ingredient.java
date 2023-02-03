@@ -3,6 +3,7 @@ package se.lexicon.recipedatabase.classes;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Ingredient {
@@ -13,6 +14,9 @@ public class Ingredient {
 
     @Column(nullable = false, unique = true)
     private String ingredientName;
+
+    @OneToMany(mappedBy = "ingredients")
+    private Set<RecipeIngredient> recipeIngredient;
 
 
     public Ingredient() {

@@ -14,15 +14,23 @@ public class Recipe {
     private String recipeName;
 
     @OneToMany(mappedBy = "recipe")
-    private List<RecipeIngredient> recipeIngredients  = new ArrayList<>()   ;
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     private RecipeInstruction instruction;
 
-    @OneToMany //Can I have OneToMany in both linked entities? //RecipeCategory, Collection cannot be OneToOne or ManyToOne
-    Set<RecipeCategory> categories;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "recipe_recipe_category",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id")
+    )
+    Set<RecipeCategory> categories = new HashSet<>();
 
     public Recipe() {
+    }
+
+    public Recipe(String recipeName) {
+        this.recipeName = recipeName;
     }
 
     public Recipe(String recipeName, List<RecipeIngredient> recipeIngredients, RecipeInstruction instruction, Set<RecipeCategory> categories) {
@@ -78,6 +86,11 @@ public class Recipe {
 
     public void setCategories(Set<RecipeCategory> categories) {
         this.categories = categories;
+    }
+
+    public void addCategory(RecipeCategory recipeCategory) {
+        if (categories == null) categories = new HashSet<>();
+        categories.add(recipeCategory);
     }
 
     @Override
